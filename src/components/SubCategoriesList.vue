@@ -2,8 +2,12 @@
   <template v-for="category in categories" :key="category.name">
     <template v-for="subcategory in category.subcats" :key="subcategory.name">
       <div>
-        <h2 class="subcategory-title">{{ subcategory.name }}</h2>
-        <SubSubCategoriesList></SubSubCategoriesList>
+        <h2 v-if="filteredName" class="subcategory-title">
+          {{ subcategory.name }}
+        </h2>
+        <SubSubCategoriesList
+          v-bind="{ selectedValue, subcategory }"
+        ></SubSubCategoriesList>
       </div>
     </template>
   </template>
@@ -11,9 +15,24 @@
 
 <script>
 import SubSubCategoriesList from "./SubSubCategoriesList.vue";
+import { HOMEPAGE } from "./constants/constants";
 export default {
-  inject: ["categories", "selectedCat"],
+  props: {
+    selectedValue: { type: String, required: true },
+    category: { type: Object, required: true },
+  },
+  inject: ["categories"],
   components: { SubSubCategoriesList },
+  computed: {
+    filteredName() {
+      if (this.selectedValue === HOMEPAGE) {
+        return true;
+      }
+      return this.category.subcats.find(
+        (item) => item.name === this.selectedValue
+      );
+    },
+  },
 };
 </script>
 

@@ -1,15 +1,15 @@
 <template>
   <nav>
     <ul @click="selectNavItem">
-      <li>Home</li>
-      <li>New data</li>
+      <li title="Home">{{ $options.HOMEPAGE }}</li>
+      <li title="New data">{{ $options.NEW_DATA }}</li>
       <template v-for="category in categories" :key="category.name">
-        <li>
+        <li :title="category.name">
           {{ category.name }}
         </li>
         <ul>
           <template v-for="subcat in category.subcats" :key="subcat.name">
-            <li>
+            <li :title="subcat.name">
               {{ subcat.name }}
             </li>
             <ul>
@@ -17,7 +17,7 @@
                 v-for="subsubcat in subcat.subsubcats"
                 :key="subsubcat.name"
               >
-                <li>{{ subsubcat.name }}</li>
+                <li :title="subsubcat.name">{{ subsubcat.name }}</li>
               </template>
             </ul>
           </template>
@@ -28,12 +28,16 @@
 </template>
 
 <script>
+import { NEW_DATA, HOMEPAGE } from "../constants/constants";
 export default {
+  NEW_DATA,
+  HOMEPAGE,
   inject: ["categories"],
   emits: ["nav-selection"],
   methods: {
     selectNavItem($event) {
-      this.$emit("nav-selection", $event.target.innerText);
+      const { value } = $event.target.attributes.title;
+      this.$emit("nav-selection", value);
     },
   },
 };

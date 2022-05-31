@@ -6,8 +6,7 @@
           <h2>{{ subsub.name }}</h2>
           <div class="users-content">
             <template v-for="user in users" :key="user.email">
-              <!-- v-for="user in users" v-if="user.category === subsub.name" -->
-              <div class="user-card">
+              <div class="user-card" v-if="filteredUsers">
                 <p v-for="value in user" :key="value">{{ value }}</p>
               </div>
             </template>
@@ -20,6 +19,14 @@
 <script>
 export default {
   inject: ["users", "categories"],
+  props: { selectedValue: { type: String, required: true } },
+  computed: {
+    filteredUsers() {
+      return this.users.find((user) =>
+        user.category.includes(this.selectedValue)
+      );
+    },
+  },
 };
 </script>
 

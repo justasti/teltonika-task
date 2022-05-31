@@ -1,9 +1,9 @@
 <template>
   <TheHeader />
   <div class="main-content">
-    <TheNavigation @nav-selection="selectTab" />
+    <TheNavigation @nav-selection="selectTab($event)" />
     <BaseCard>
-      <component :is="selectedTab"></component>
+      <component :is="selectedTab" v-bind="{ selectedValue }"></component>
     </BaseCard>
   </div>
   <TheFooter></TheFooter>
@@ -57,7 +57,7 @@ export default {
         },
       ],
       selectedTab: "CategoriesList",
-      selectedCat: "cat2",
+      selectedValue: "cat1",
     };
   },
 
@@ -65,26 +65,15 @@ export default {
     return {
       users: this.users,
       categories: this.categories,
-      selectedCat: this.selectedCat,
     };
-  },
-  watch: {
-    selectedCat(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.selectedCat = newValue;
-        this.$forceUpdate();
-      }
-    },
   },
   methods: {
     selectTab(value) {
       if (value === "New data") {
         this.selectedTab = "TheForms";
-      } else if (value === "Home") {
-        this.selectedTab = "CategoriesList";
       } else {
         this.selectedTab = "CategoriesList";
-        this.selectedCat = value;
+        this.selectedValue = value;
       }
     },
   },
@@ -102,6 +91,7 @@ export default {
 }
 body {
   color: #333;
+  background-color: #eee;
   font-family: "Lato", sans-serif;
   height: 100vh;
   max-width: 1000px;
@@ -110,7 +100,8 @@ body {
 .main-content {
   display: grid;
   grid-template-columns: 3fr 7fr;
-  padding-block: 1rem;
+  padding: 1rem;
+  background-color: #fff;
 }
 h2 {
   padding-left: 2rem;
