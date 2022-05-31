@@ -3,17 +3,17 @@
     <template v-for="subcategory in category.subcats" :key="subcategory.name">
       <div>
         <h2 class="subcategory-title">{{ subcategory.name }}</h2>
-        <TheSubSubCategory></TheSubSubCategory>
+        <SubSubCategoriesList></SubSubCategoriesList>
       </div>
     </template>
   </template>
 </template>
 
 <script>
-import TheSubSubCategory from "./TheSubSubCategory.vue";
+import SubSubCategoriesList from "./SubSubCategoriesList.vue";
 export default {
   inject: ["categories", "selectedCat"],
-  components: { TheSubSubCategory },
+  components: { SubSubCategoriesList },
 };
 </script>
 
@@ -21,6 +21,7 @@ export default {
 .subcategory-title {
   text-align: center;
   padding: 0.55rem 0;
+  font-size: 1.25rem;
 }
 div {
   border: 1px #333 solid;

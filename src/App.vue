@@ -13,9 +13,9 @@ import TheHeader from "./components/layout/TheHeader.vue";
 import TheFooter from "./components/layout/TheFooter.vue";
 import TheNavigation from "./components/layout/TheNavigation.vue";
 import TheForms from "./components/forms/TheForms.vue";
-import TheCategory from "./components/TheCategory.vue";
+import CategoriesList from "./components/CategoriesList.vue";
 export default {
-  components: { TheHeader, TheFooter, TheNavigation, TheForms, TheCategory },
+  components: { TheHeader, TheFooter, TheNavigation, TheForms, CategoriesList },
   data() {
     return {
       users: [
@@ -56,8 +56,8 @@ export default {
           ],
         },
       ],
-      selectedTab: "TheCategory",
-      selectedCat: "cat",
+      selectedTab: "CategoriesList",
+      selectedCat: "cat2",
     };
   },
 
@@ -68,14 +68,22 @@ export default {
       selectedCat: this.selectedCat,
     };
   },
+  watch: {
+    selectedCat(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.selectedCat = newValue;
+        this.$forceUpdate();
+      }
+    },
+  },
   methods: {
     selectTab(value) {
       if (value === "New data") {
         this.selectedTab = "TheForms";
       } else if (value === "Home") {
-        this.selectedTab = "TheCategory";
+        this.selectedTab = "CategoriesList";
       } else {
-        this.selectedTab = "TheCategory";
+        this.selectedTab = "CategoriesList";
         this.selectedCat = value;
       }
     },

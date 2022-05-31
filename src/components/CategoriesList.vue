@@ -1,16 +1,16 @@
 <template>
   <section v-for="category in categories" :key="category.name">
-    <div v-if="category.name === selectedCat">
+    <div :key="category.name" v-if="selectedCat === category.name">
       <h2 class="category-title">{{ category.name }}</h2>
-      <TheSubCategory></TheSubCategory>
+      <SubCategoriesList></SubCategoriesList>
     </div>
   </section>
 </template>
 
 <script>
-import TheSubCategory from "./TheSubCategory.vue";
+import SubCategoriesList from "./SubCategoriesList.vue";
 export default {
-  components: { TheSubCategory },
+  components: { SubCategoriesList },
   inject: ["categories", "selectedCat"],
 };
 </script>
